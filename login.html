@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>로그인 — 넥스트파트너</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <link rel="stylesheet" href="dist/index.css" />
+</head>
+<body class="min-h-screen flex flex-col bg-neutral-50 font-base">
+
+  <!-- Mobile App Bar (md 미만에서만 표시) -->
+  <header class="np-app-bar md:hidden">
+    <span class="np-app-bar-title-center text-primary-500">넥스트파트너</span>
+  </header>
+
+  <!-- Desktop Header (md 이상에서만 표시) -->
+  <header class="hidden md:block np-header">
+    <div class="np-header-inner">
+      <a href="/" class="text-xl font-bold text-primary-500 tracking-tight">넥스트파트너</a>
+    </div>
+  </header>
+
+  <!-- 본문 -->
+  <main class="flex-1 flex flex-col items-center justify-start md:justify-center">
+    <div class="w-full max-w-[440px] bg-neutral-0 rounded-none md:rounded-card md:shadow-[0_2px_16px_rgba(0,0,0,0.08)] px-6 py-8 md:p-10 md:my-10">
+
+      <!-- 페이지 제목 -->
+      <h1 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-8">로그인</h1>
+
+      <!-- 로그인 실패 안내 (초기 숨김) -->
+      <div
+        id="error-banner"
+        class="hidden mb-6 items-center gap-3 px-4 py-3 bg-error-100 text-error-500 text-base font-medium rounded-card leading-relaxed"
+        role="alert"
+        aria-live="assertive"
+      >
+        <svg class="shrink-0 w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        </svg>
+        <span>아이디 또는 비밀번호를 확인해 주세요.</span>
+      </div>
+
+      <!-- 로그인 폼 -->
+      <form id="login-form" novalidate>
+
+        <!-- 아이디 -->
+        <div class="np-textfield-wrap mb-5">
+          <label for="username" class="np-textfield-label">아이디</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            class="np-textfield"
+            placeholder="아이디를 입력해 주세요"
+            autocomplete="username"
+            inputmode="email"
+            aria-describedby="username-error"
+          />
+          <p id="username-error" class="np-textfield-hint-error hidden" role="alert">아이디를 입력해 주세요.</p>
+        </div>
+
+        <!-- 비밀번호 -->
+        <div class="np-textfield-wrap mb-3">
+          <label for="password" class="np-textfield-label">비밀번호</label>
+          <div class="np-textfield-password-wrap">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="np-textfield"
+              placeholder="비밀번호를 입력해 주세요"
+              autocomplete="current-password"
+              aria-describedby="password-error"
+            />
+            <button
+              type="button"
+              id="pw-toggle"
+              class="np-textfield-pw-toggle"
+              aria-label="비밀번호 표시"
+            >
+              <!-- 표시 아이콘 -->
+              <svg id="pw-icon-show" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <!-- 숨김 아이콘 -->
+              <svg id="pw-icon-hide" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+              </svg>
+            </button>
+          </div>
+          <p id="password-error" class="np-textfield-hint-error hidden" role="alert">비밀번호를 입력해 주세요.</p>
+        </div>
+
+        <!-- 비밀번호 찾기 링크 -->
+        <div class="flex justify-end mb-6">
+          <a
+            href="/find-password.html"
+            class="text-base text-neutral-400 hover:text-neutral-700 transition-colors duration-[120ms] underline-offset-2 hover:underline"
+          >비밀번호 찾기</a>
+        </div>
+
+        <!-- 로그인 버튼 -->
+        <button type="submit" class="np-btn np-btn-primary np-btn-lg w-full">
+          로그인
+        </button>
+
+      </form>
+
+      <!-- 구분선 -->
+      <div class="flex items-center gap-3 mt-6 mb-5">
+        <hr class="flex-1 border-neutral-200" />
+        <span class="text-base text-neutral-400 shrink-0">또는</span>
+        <hr class="flex-1 border-neutral-200" />
+      </div>
+
+      <!-- 소셜 로그인 -->
+      <div class="flex flex-col gap-3 mb-8">
+
+        <!-- 카카오 로그인 -->
+        <button
+          type="button"
+          class="w-full h-14 flex items-center justify-center gap-3 rounded-button font-bold text-xl font-base cursor-pointer border-none transition-colors duration-[120ms]"
+          style="background-color: #FEE500; color: #191919;"
+          onmouseover="this.style.backgroundColor='#F0D800'"
+          onmouseout="this.style.backgroundColor='#FEE500'"
+          onmousedown="this.style.backgroundColor='#E5CE00'"
+          onmouseup="this.style.backgroundColor='#F0D800'"
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11 2C6.029 2 2 5.358 2 9.5c0 2.684 1.666 5.042 4.19 6.384L5.2 19.5l4.746-3.094A10.44 10.44 0 0011 16.5c4.971 0 9-3.358 9-7.5S15.971 2 11 2z" fill="#191919"/>
+          </svg>
+          카카오로 로그인
+        </button>
+
+        <!-- 네이버 로그인 -->
+        <button
+          type="button"
+          class="w-full h-14 flex items-center justify-center gap-3 rounded-button font-bold text-xl font-base text-white cursor-pointer border-none transition-colors duration-[120ms]"
+          style="background-color: #03C75A;"
+          onmouseover="this.style.backgroundColor='#02B350'"
+          onmouseout="this.style.backgroundColor='#03C75A'"
+          onmousedown="this.style.backgroundColor='#029F48'"
+          onmouseup="this.style.backgroundColor='#02B350'"
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13.22 11.53L8.78 4H4.5v14h4.28V10.47L13.22 18H17.5V4h-4.28v7.53z" fill="white"/>
+          </svg>
+          네이버로 로그인
+        </button>
+
+      </div>
+
+      <!-- 회원가입 유도 -->
+      <p class="text-center text-base text-neutral-400 leading-relaxed">
+        아직 회원이 아니신가요?
+        <a href="/signup.html" class="text-primary-500 font-bold hover:underline underline-offset-2 ml-1">회원가입</a>
+      </p>
+
+    </div>
+  </main>
+
+  <script>
+    /* ── 비밀번호 표시/숨기기 ── */
+    const pwToggle = document.getElementById('pw-toggle');
+    const pwInput  = document.getElementById('password');
+    const pwShow   = document.getElementById('pw-icon-show');
+    const pwHide   = document.getElementById('pw-icon-hide');
+    let pwVisible  = false;
+
+    pwToggle.addEventListener('click', () => {
+      pwVisible = !pwVisible;
+      pwInput.type = pwVisible ? 'text' : 'password';
+      pwShow.classList.toggle('hidden', pwVisible);
+      pwHide.classList.toggle('hidden', !pwVisible);
+      pwToggle.setAttribute('aria-label', pwVisible ? '비밀번호 숨기기' : '비밀번호 표시');
+    });
+
+    /* ── 폼 유효성 검사 및 에러 처리 ── */
+    const form          = document.getElementById('login-form');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const usernameError = document.getElementById('username-error');
+    const passwordError = document.getElementById('password-error');
+    const errorBanner   = document.getElementById('error-banner');
+
+    function showBanner() {
+      errorBanner.classList.remove('hidden');
+      errorBanner.classList.add('flex');
+    }
+    function hideBanner() {
+      errorBanner.classList.add('hidden');
+      errorBanner.classList.remove('flex');
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // 이전 오류 초기화
+      [usernameInput, passwordInput].forEach(el => el.classList.remove('np-textfield-error'));
+      usernameError.classList.add('hidden');
+      passwordError.classList.add('hidden');
+      hideBanner();
+
+      let valid = true;
+
+      if (!usernameInput.value.trim()) {
+        usernameInput.classList.add('np-textfield-error');
+        usernameError.classList.remove('hidden');
+        valid = false;
+      }
+
+      if (!passwordInput.value.trim()) {
+        passwordInput.classList.add('np-textfield-error');
+        passwordError.classList.remove('hidden');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // 로그인 실패 시 표시 (실제 API 연동 전 데모 상태)
+      showBanner();
+      usernameInput.classList.add('np-textfield-error');
+      passwordInput.classList.add('np-textfield-error');
+    });
+
+    // 입력 시 개별 필드 오류 즉시 해제
+    usernameInput.addEventListener('input', () => {
+      usernameInput.classList.remove('np-textfield-error');
+      usernameError.classList.add('hidden');
+      hideBanner();
+    });
+
+    passwordInput.addEventListener('input', () => {
+      passwordInput.classList.remove('np-textfield-error');
+      passwordError.classList.add('hidden');
+      hideBanner();
+    });
+  </script>
+
+</body>
+</html>
